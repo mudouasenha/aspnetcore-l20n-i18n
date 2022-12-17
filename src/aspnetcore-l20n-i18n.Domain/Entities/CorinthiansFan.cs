@@ -2,7 +2,7 @@ using aspnetcore_l20n_i18n.Domain.Entities;
 
 namespace aspnetcore_l20n_i18n.Domain
 {
-    public class User : EntityBase
+    public class CorinthiansFan : EntityBase
     {
         public string Name { get; set; }
 
@@ -13,9 +13,5 @@ namespace aspnetcore_l20n_i18n.Domain
         public string PhoneNumber { get; set; }
 
         public DateTime DateOfBirth { get; set; }
-
-        public DateTime CreatedAt { get; set; }
-
-        public DateTime? UpdatedAt { get; set; }
     }
 }

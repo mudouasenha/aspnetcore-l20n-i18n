@@ -28,7 +28,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSwaggerGen(options =>
 {
-    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Protected API", Version = "v1" });
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "Corinthians API ",
+        Description = "Test API",
+    });
 });
 
 builder.Services.AddRepositoryInfrastructure(builder.Configuration)
@@ -55,7 +60,8 @@ if (app.Environment.IsDevelopment())
         .UseSwagger()
         .UseSwaggerUI(options =>
         {
-            options.SwaggerEndpoint("/swagger", "Corinthians API V1");
+            options.SwaggerEndpoint("/swagger/v1/swagger.json", "Corinthians API v1");
+            options.RoutePrefix = string.Empty;
         });
 }
 else

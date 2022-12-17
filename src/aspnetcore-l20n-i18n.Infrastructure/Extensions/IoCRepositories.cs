@@ -1,4 +1,6 @@
-﻿using aspnetcore_l20n_i18n.Infrastructure.Repository.Data.Contexts;
+﻿using aspnetcore_l20n_i18n.Infrastructure.Repositories;
+using aspnetcore_l20n_i18n.Infrastructure.Repositories.Abstractions;
+using aspnetcore_l20n_i18n.Infrastructure.Repository.Data.Contexts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -16,8 +18,8 @@ namespace aspnetcore_l20n_i18n.Infrastructure.Repository.Extensions
                     .AddDatabaseTransaction()
                     .AddDatabaseDeveloperPageExceptionFilter();
 
-        public static IServiceCollection AddRepositories(this IServiceCollection services)
-        { return services; }
+        public static IServiceCollection AddRepositories(this IServiceCollection services) => services.AddScoped<ICorinthiansFanRepository, CorinthiansFanRepository>()
+                .AddScoped<IFootballMatchRepository, FootballMatchRepository>();
 
         public static IServiceCollection AddDatabaseTransaction(this IServiceCollection services)
         {
