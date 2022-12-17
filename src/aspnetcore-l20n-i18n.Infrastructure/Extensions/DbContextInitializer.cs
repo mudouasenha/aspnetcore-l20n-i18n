@@ -1,7 +1,7 @@
 ﻿using Extensions.Hosting.AsyncInitialization;
 using Microsoft.EntityFrameworkCore;
 
-namespace Doodle.Social.Infrastructure.Repository.Extensions
+namespace aspnetcore_l20n_i18n.Infrastructure.Repository.Extensions
 {
     public class DbContextInitializer<TContext> : IAsyncInitializer where TContext : DbContext
     {

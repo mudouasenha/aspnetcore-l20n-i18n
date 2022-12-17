@@ -1,17 +1,17 @@
-﻿using Doodle.Social.Infrastructure.Repository.Data.Contexts;
+﻿using aspnetcore_l20n_i18n.Infrastructure.Repository.Data.Contexts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Doodle.Social.Infrastructure.Repository.Extensions
+namespace aspnetcore_l20n_i18n.Infrastructure.Repository.Extensions
 {
     public static class IoCRepositories
     {
         public static IServiceCollection AddRepositoryInfrastructure(this IServiceCollection services, IConfiguration config) =>
             services.BindOptions(config)
-                    .AddDbContext<SocialDbContext>(options => options.UseSqlServer(config.GetConnectionString("Doodle")))
-                        .AddAsyncInitializer<DbContextInitializer<SocialDbContext>>()
+                    .AddDbContext<CorinthiansDbContext>(options => options.UseSqlServer(config.GetConnectionString("Corinthians")))
+                        .AddAsyncInitializer<DbContextInitializer<CorinthiansDbContext>>()
                     .AddRepositories()
                     .AddDatabaseTransaction()
                     .AddDatabaseDeveloperPageExceptionFilter();

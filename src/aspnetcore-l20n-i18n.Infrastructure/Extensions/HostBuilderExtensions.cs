@@ -1,16 +1,16 @@
-﻿using Doodle.Social.Infrastructure.Repository.Data.Contexts;
+﻿using aspnetcore_l20n_i18n.Infrastructure.Repository.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 
-namespace Doodle.Social.Infrastructure.Repository.Extensions
+namespace aspnetcore_l20n_i18n.Infrastructure.Repository.Extensions
 {
     public static class HostBuilderExtensions
     {
         public static async Task InitializeAndRunAsync(this IHost host)
         {
-            host.RunMigrations<SocialDbContext>();
+            host.RunMigrations<CorinthiansDbContext>();
             await host.RunAsync();
         }
 

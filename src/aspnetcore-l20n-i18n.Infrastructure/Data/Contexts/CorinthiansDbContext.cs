@@ -1,11 +1,11 @@
-using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
-namespace Doodle.Social.Infrastructure.Repository.Data.Contexts
+namespace aspnetcore_l20n_i18n.Infrastructure.Repository.Data.Contexts
 {
-    public class SocialDbContext : DbContext
+    public class CorinthiansDbContext : DbContext
     {
-        public SocialDbContext(DbContextOptions<SocialDbContext> options) : base(options)
+        public CorinthiansDbContext(DbContextOptions<CorinthiansDbContext> options) : base(options)
         {
         }
 

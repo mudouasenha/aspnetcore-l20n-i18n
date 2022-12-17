@@ -1,6 +1,6 @@
-﻿using Doodle.Domain.Entities;
+﻿using aspnetcore_l20n_i18n.Domain.Entities;
 
-namespace Doodle.Social.Infrastructure.Repository.Repositories.Abstractions
+namespace aspnetcore_l20n_i18n.Infrastructure.Repository.Repositories.Abstractions
 {
     public interface IRepository<TEntity> where TEntity : EntityBase
     {

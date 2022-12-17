@@ -1,16 +1,16 @@
-﻿using Doodle.Domain.Entities;
-using Doodle.Social.Infrastructure.Repository.Data.Contexts;
-using Doodle.Social.Infrastructure.Repository.Repositories.Abstractions;
+﻿using aspnetcore_l20n_i18n.Domain.Entities;
+using aspnetcore_l20n_i18n.Infrastructure.Repository.Data.Contexts;
+using aspnetcore_l20n_i18n.Infrastructure.Repository.Repositories.Abstractions;
 using Microsoft.EntityFrameworkCore;
 
-namespace Doodle.Social.Infrastructure.Repository.Repositories
+namespace aspnetcore_l20n_i18n.Infrastructure.Repository.Repositories
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : EntityBase
     {
-        protected readonly SocialDbContext dbContext;
+        protected readonly CorinthiansDbContext dbContext;
         protected readonly DbSet<TEntity> dbSet;
 
-        public Repository(SocialDbContext dbContext)
+        public Repository(CorinthiansDbContext dbContext)
         {
             this.dbContext = dbContext;
             dbSet = dbContext.Set<TEntity>();

@@ -1,3 +1,4 @@
+using aspnetcore_l20n_i18n.Api.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 
@@ -15,21 +16,21 @@ public class UserController : ControllerBase
     }
 
     [HttpPost()]
-    public async Task<IActionResult> CreateUser([FromBody] UserCreateModel inputModel)
+    public async Task<IActionResult> CreateUser([FromBody] UserCreateCommandDTO inputModel)
     {
         var result = 1; //await user.create;
         return Ok(result);
     }
 
     [HttpGet()]
-    public async Task<IActionResult> Get([FromBody] UserCreateModel inputModel)
+    public async Task<IActionResult> Get([FromBody] UserFilterQueryDTO inputModel)
     {
         var result = 1; //await user.create;
         return Ok(result);
     }
 
-    [HttpGet("get-by-id")]
-    public async Task<IActionResult> GetById([FromBody] UserCreateModel inputModel)
+    [HttpGet("get-by-id/{id}")]
+    public async Task<IActionResult> GetById([FromRoute] int id)
     {
         var result = 1; //await user.create;
         return Ok(result);
