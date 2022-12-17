@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "aspnetcore-l20n-i18n.Api": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:49731;http://localhost:49733"
+    }
+  }
+}
