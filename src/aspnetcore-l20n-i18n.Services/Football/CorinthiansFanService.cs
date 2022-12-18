@@ -26,28 +26,25 @@ namespace aspnetcore_l20n_i18n.Services.Football
 
         public async Task<EnumerableResult<CorinthiansFanResult>> GetAll(string requestCountry)
         {
-            SetCulture(requestCountry);
             var fans = await _corinthiansFanRepository.AsQueryable().ToListAsync();
 
-            return new EnumerableResult<CorinthiansFanResult>(fans.Select(p => LocalizeUser(p, requestCountry)), _localizer["CorinthiansFansSuccessResult"], true);
+            return new EnumerableResult<CorinthiansFanResult>(fans.Select(p => GlobalizeCorinthiansUser(p, requestCountry)), _localizer["CorinthiansFansSuccessResult"], true);
         }
 
         public async Task<Result<CorinthiansFanResult>> GetById(int id, string requestCountry)
         {
-            SetCulture(requestCountry);
             var fan = await _corinthiansFanRepository.SelectById(id);
 
             if (fan == null)
                 return Result<CorinthiansFanResult>.Fail(_localizer["GetCorinthiansFanByIdFailedResult"]);
 
-            return Result<CorinthiansFanResult>.Successful(LocalizeUser(fan, requestCountry), _localizer["GetCorinthiansFanByIdSuccessfulResult"]);
+            return Result<CorinthiansFanResult>.Successful(GlobalizeCorinthiansUser(fan, requestCountry), _localizer["GetCorinthiansFanByIdSuccessfulResult"]);
         }
 
         public async Task<Result<CorinthiansFan>> Register(UserCreateCommand input)
         {
             try
             {
-                SetCulture(input.Country);
                 if (!IsValidCountry(input.Country))
                     return Result<CorinthiansFan>.Fail(_localizer["NotRegisteredCountry"]);
 
@@ -83,7 +80,7 @@ namespace aspnetcore_l20n_i18n.Services.Football
             return true;
         }
 
-        private void SetCulture(string requestCountry)
+        private CorinthiansFanResult GlobalizeCorinthiansUser(CorinthiansFan fan, string requestCountry)
         {
             if (requestCountry == "Brasil")
             {
@@ -96,11 +93,8 @@ namespace aspnetcore_l20n_i18n.Services.Football
                 Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-US");
                 Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture("en-US");
             }
-        }
 
-        private CorinthiansFanResult LocalizeUser(CorinthiansFan fan, string requestCountry)
-        {
-            SetCulture(requestCountry);
+            var ri = new RegionInfo(System.Threading.Thread.CurrentThread.CurrentUICulture.LCID);
 
             var fanResult = new CorinthiansFanResult()
             {
@@ -109,7 +103,7 @@ namespace aspnetcore_l20n_i18n.Services.Football
                 Address = fan.Address,
                 PhoneNumber = fan.PhoneNumber,
                 DateOfBirth = fan.DateOfBirth.ToString(Thread.CurrentThread.CurrentCulture),
-                AccountBalance = fan.AccountBalance.ToString(Thread.CurrentThread.CurrentCulture),
+                AccountBalance = ri.ISOCurrencySymbol + " " + fan.AccountBalance.ToString(Thread.CurrentThread.CurrentCulture),
                 CreatedAt = DateTime.Now.ToString(Thread.CurrentThread.CurrentCulture),
                 UpdatedAt = fan.UpdatedAt?.ToString(Thread.CurrentThread.CurrentCulture)
             };

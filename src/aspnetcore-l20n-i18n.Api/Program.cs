@@ -70,8 +70,13 @@ else
         .UseHsts();
 }
 
-app.UseRequestLocalization(options => options.SetDefaultCulture(CultureInfo.CurrentCulture.Name)
-.AddSupportedCultures("pt-BR", "en-US"));
+app.UseRequestLocalization(options =>
+{
+    options.SetDefaultCulture(CultureInfo.CurrentCulture.Name)
+    .AddSupportedCultures("pt-BR", "en-US");
+
+    options.ApplyCurrentCultureToResponseHeaders = true;
+});
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
