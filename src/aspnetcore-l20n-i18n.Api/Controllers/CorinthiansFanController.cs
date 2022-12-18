@@ -24,21 +24,57 @@ public class CorinthiansFanController : ControllerBase
     [HttpPost()]
     public async Task<IActionResult> CreateUser([FromBody] UserCreateCommandDTO inputModel)
     {
-        var result = 1; //await user.create;
-        return Ok(result);
+        try
+        {
+            var result = await _corinthiansFanService.Register(UserCreateCommandDTO.ToInput(inputModel));
+
+            if (!result.Success)
+                return Problem(result.Message);
+
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return Problem();
+        }
     }
 
     [HttpGet()]
-    public async Task<IActionResult> Get([FromBody] UserFilterQueryDTO inputModel)
+    public async Task<IActionResult> Get()
     {
-        var result = 1; //await user.create;
-        return Ok(result);
+        try
+        {
+            var result = await _corinthiansFanService.GetAll();
+
+            if (!result.Success)
+                return Problem(result.Message);
+
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return Problem();
+        }
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById([FromRoute] int id)
     {
-        var result = 1; //await user.create;
-        return Ok(result);
+        try
+        {
+            var result = await _corinthiansFanService.GetById(id);
+
+            if (!result.Success)
+                return Problem(result.Message);
+
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return Problem();
+        }
     }
 }
