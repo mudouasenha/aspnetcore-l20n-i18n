@@ -34,7 +34,7 @@
   <ItemGroup>
     <ProjectReference Include="..\aspnetcore-l20n-i18n.Domain\aspnetcore-l20n-i18n.Domain.csproj" />
     <ProjectReference Include="..\aspnetcore-l20n-i18n.Infrastructure\aspnetcore-l20n-i18n.Infrastructure.csproj" />
-    <ProjectReference Include="..\aspnetcore-l20n-i18n\aspnetcore-l20n-i18n.Services\aspnetcore-l20n-i18n.Services.csproj" />
+    <ProjectReference Include="..\aspnetcore-l20n-i18n.Services\aspnetcore-l20n-i18n.Services.csproj" />
   </ItemGroup>
 
 </Project>

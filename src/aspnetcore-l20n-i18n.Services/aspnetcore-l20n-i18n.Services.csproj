@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\aspnetcore-l20n-i18n.Infrastructure\aspnetcore-l20n-i18n.Infrastructure.csproj" />
+    <ProjectReference Include="..\aspnetcore-l20n-i18n.Infrastructure\aspnetcore-l20n-i18n.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
