@@ -12,7 +12,7 @@ namespace aspnetcore_l20n_i18n.Infrastructure.Data.Configs
             builder.HasKey(p => p.Id);
 
             builder.Property(p => p.Id).UseIdentityColumn();
-            builder.Property(p => p.Away).HasColumnType("bool").IsRequired().HasDefaultValue(false);
+            builder.Property(p => p.Away).HasColumnType("bit").IsRequired().HasDefaultValue(false);
             builder.Property(p => p.Stadium).HasColumnType("varchar").HasMaxLength(70).IsRequired();
             builder.Property(p => p.Adversary).HasColumnType("varchar").HasMaxLength(70).IsRequired();
             builder.Property(p => p.GameType).HasColumnType("tinyint").IsRequired().HasDefaultValue(GameTypeEnum.Masculine);
