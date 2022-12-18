@@ -7,6 +7,7 @@ using aspnetcore_l20n_i18n.Services.Resources;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
+using System.Globalization;
 
 namespace aspnetcore_l20n_i18n.Services.Football
 {
@@ -23,27 +24,30 @@ namespace aspnetcore_l20n_i18n.Services.Football
             _localizer = localizer;
         }
 
-        public async Task<EnumerableResult<CorinthiansFan>> GetAll()
+        public async Task<EnumerableResult<CorinthiansFanResult>> GetAll(string requestCountry)
         {
+            SetCulture(requestCountry);
             var fans = await _corinthiansFanRepository.AsQueryable().ToListAsync();
 
-            return new EnumerableResult<CorinthiansFan>(fans, _localizer["CorinthiansFansSuccessResult"], true);
+            return new EnumerableResult<CorinthiansFanResult>(fans.Select(p => LocalizeUser(p, requestCountry)), _localizer["CorinthiansFansSuccessResult"], true);
         }
 
-        public async Task<Result<CorinthiansFan>> GetById(int id)
+        public async Task<Result<CorinthiansFanResult>> GetById(int id, string requestCountry)
         {
+            SetCulture(requestCountry);
             var fan = await _corinthiansFanRepository.SelectById(id);
 
             if (fan == null)
-                return Result<CorinthiansFan>.Fail(_localizer["GetCorinthiansFanByIdFailedResult"]);
+                return Result<CorinthiansFanResult>.Fail(_localizer["GetCorinthiansFanByIdFailedResult"]);
 
-            return Result<CorinthiansFan>.Successful(fan, _localizer["GetCorinthiansFanByIdSuccessfulResult"]);
+            return Result<CorinthiansFanResult>.Successful(LocalizeUser(fan, requestCountry), _localizer["GetCorinthiansFanByIdSuccessfulResult"]);
         }
 
         public async Task<Result<CorinthiansFan>> Register(UserCreateCommand input)
         {
             try
             {
+                SetCulture(input.Country);
                 if (!IsValidCountry(input.Country))
                     return Result<CorinthiansFan>.Fail(_localizer["NotRegisteredCountry"]);
 
@@ -53,8 +57,9 @@ namespace aspnetcore_l20n_i18n.Services.Football
                     Country = input.Country,
                     Address = input.Address,
                     PhoneNumber = input.PhoneNumber,
-                    DateOfBirth = input.DateOfBirth,
-                    CreatedAt = DateTime.Now,
+                    DateOfBirth = input.DateOfBirth.ToUniversalTime(),
+                    AccountBalance = input.AccountBalance,
+                    CreatedAt = DateTime.Now.ToUniversalTime(),
                     UpdatedAt = null
                 };
 
@@ -70,12 +75,46 @@ namespace aspnetcore_l20n_i18n.Services.Football
 
         private bool IsValidCountry(string country)
         {
-            var countrieslist = new List<string> { "Brasil", "Estados Unidos" };
+            var countrieslist = new List<string> { "Brasil", "United States" };
 
             if (!countrieslist.Contains(country))
                 return false;
 
             return true;
+        }
+
+        private void SetCulture(string requestCountry)
+        {
+            if (requestCountry == "Brasil")
+            {
+                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("pt-BR");
+                Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture("pt-BR");
+            }
+
+            if (requestCountry == "United States")
+            {
+                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-US");
+                Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture("en-US");
+            }
+        }
+
+        private CorinthiansFanResult LocalizeUser(CorinthiansFan fan, string requestCountry)
+        {
+            SetCulture(requestCountry);
+
+            var fanResult = new CorinthiansFanResult()
+            {
+                Name = fan.Name,
+                Country = fan.Country,
+                Address = fan.Address,
+                PhoneNumber = fan.PhoneNumber,
+                DateOfBirth = fan.DateOfBirth.ToString(Thread.CurrentThread.CurrentCulture),
+                AccountBalance = fan.AccountBalance.ToString(Thread.CurrentThread.CurrentCulture),
+                CreatedAt = DateTime.Now.ToString(Thread.CurrentThread.CurrentCulture),
+                UpdatedAt = fan.UpdatedAt?.ToString(Thread.CurrentThread.CurrentCulture)
+            };
+
+            return fanResult;
         }
     }
 }

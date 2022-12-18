@@ -41,11 +41,11 @@ public class CorinthiansFanController : ControllerBase
     }
 
     [HttpGet()]
-    public async Task<IActionResult> Get()
+    public async Task<IActionResult> Get([FromQuery] string requestCountry)
     {
         try
         {
-            var result = await _corinthiansFanService.GetAll();
+            var result = await _corinthiansFanService.GetAll(requestCountry);
 
             if (!result.Success)
                 return Problem(result.Message);
@@ -60,11 +60,11 @@ public class CorinthiansFanController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetById([FromRoute] int id)
+    public async Task<IActionResult> GetById([FromRoute] int id, [FromQuery] string requestCountry)
     {
         try
         {
-            var result = await _corinthiansFanService.GetById(id);
+            var result = await _corinthiansFanService.GetById(id, requestCountry);
 
             if (!result.Success)
                 return Problem(result.Message);

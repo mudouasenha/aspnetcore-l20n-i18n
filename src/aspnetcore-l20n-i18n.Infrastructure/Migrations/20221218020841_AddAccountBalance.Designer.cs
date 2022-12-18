@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using aspnetcore_l20n_i18n.Infrastructure.Repository.Data.Contexts;
 
@@ -11,9 +12,10 @@ using aspnetcore_l20n_i18n.Infrastructure.Repository.Data.Contexts;
 namespace aspnetcore_l20n_i18n.Infrastructure.Migrations
 {
     [DbContext(typeof(CorinthiansDbContext))]
-    partial class CorinthiansDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221218020841_AddAccountBalance")]
+    partial class AddAccountBalance
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

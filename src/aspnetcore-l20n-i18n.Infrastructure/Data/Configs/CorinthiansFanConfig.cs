@@ -16,6 +16,7 @@ namespace aspnetcore_l20n_i18n.Infrastructure.Data.Configs
             builder.Property(p => p.Country).HasColumnType("varchar").HasMaxLength(35).IsRequired();
             builder.Property(p => p.Name).HasColumnType("varchar").HasMaxLength(50).IsRequired();
             builder.Property(p => p.DateOfBirth).HasColumnType("datetime").IsRequired();
+            builder.Property(p => p.AccountBalance).HasColumnType("numeric").HasPrecision(19, 5).IsRequired();
             builder.Property(p => p.CreatedAt).HasColumnType("datetime").IsRequired();
             builder.Property(p => p.UpdatedAt).HasColumnType("datetime");
         }

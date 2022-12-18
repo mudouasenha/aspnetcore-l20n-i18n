@@ -10,6 +10,8 @@ namespace aspnetcore_l20n_i18n.Domain
 
         public string Address { get; set; }
 
+        public decimal AccountBalance { get; set; }
+
         public string PhoneNumber { get; set; }
 
         public DateTime DateOfBirth { get; set; }

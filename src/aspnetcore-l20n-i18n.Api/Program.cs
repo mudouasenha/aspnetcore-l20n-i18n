@@ -13,6 +13,8 @@ var builder = WebApplication.CreateBuilder(new WebApplicationOptions
     EnvironmentName = Environments.Development,
 });
 
+builder.Services.AddLocalization();
+
 SerilogExtensions.AddSerilogApi(builder.Configuration);
 builder.Host.UseSerilog(Log.Logger);
 
@@ -20,8 +22,6 @@ builder.Host.UseSerilog(Log.Logger);
 builder.Services.AddProblemDetails(setup => setup.IncludeExceptionDetails = (ctx, env) =>
 Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development" ||
 Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Staging");
-
-builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -71,8 +71,7 @@ else
 }
 
 app.UseRequestLocalization(options => options.SetDefaultCulture(CultureInfo.CurrentCulture.Name)
-.AddSupportedCultures("pt-BR", "en-GB")
-.AddSupportedUICultures("pt-BR", "en-US"));
+.AddSupportedCultures("pt-BR", "en-US"));
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

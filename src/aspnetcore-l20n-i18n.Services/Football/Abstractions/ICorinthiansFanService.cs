@@ -8,8 +8,8 @@ namespace aspnetcore_l20n_i18n.Services.Football.Abstractions
     {
         Task<Result<CorinthiansFan>> Register(UserCreateCommand input);
 
-        Task<EnumerableResult<CorinthiansFan>> GetAll();
+        Task<EnumerableResult<CorinthiansFanResult>> GetAll(string requestCountry);
 
-        Task<Result<CorinthiansFan>> GetById(int id);
+        Task<Result<CorinthiansFanResult>> GetById(int id, string requestCountry);
     }
 }

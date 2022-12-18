@@ -1,6 +1,6 @@
 ﻿namespace aspnetcore_l20n_i18n.Services.DTOs
 {
-    public class UserCreateCommand
+    public class CorinthiansFanResult
     {
         public string Name { get; set; }
 
@@ -8,10 +8,14 @@
 
         public string Address { get; set; }
 
-        public decimal AccountBalance { get; set; }
+        public string AccountBalance { get; set; }
 
         public string PhoneNumber { get; set; }
 
-        public DateTime DateOfBirth { get; set; }
+        public string DateOfBirth { get; set; }
+
+        public string CreatedAt { get; set; }
+
+        public string UpdatedAt { get; set; }
     }
 }

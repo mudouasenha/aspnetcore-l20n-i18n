@@ -10,7 +10,8 @@ namespace aspnetcore_l20n_i18n.Api.DTOs
             Country = src.Country,
             Name = src.Name,
             DateOfBirth = src.DateOfBirth,
-            PhoneNumber = src.PhoneNumber
+            PhoneNumber = src.PhoneNumber,
+            AccountBalance = src.AccountBalance
         };
     }
 }
